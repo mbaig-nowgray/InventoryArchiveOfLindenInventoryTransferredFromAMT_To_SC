@@ -82,6 +82,14 @@ namespace InventoryArchiveOfLindenInventoryTransferredFromAMT_To_SC.Controllers
         {
             try
             {
+                if (IAFL.Company == null)
+                {
+                    ViewBag.ComapanySelect = "Select Comapany";
+                }
+                if (IAFL.Ticket_Num == null)
+                {
+                    ViewBag.TicketNoSelect = "Select Ticket Number";
+                }
                 using (SqlConnection con = new SqlConnection(objDB.ConnString))
                 {
                     DataTable dtDownload = new DataTable();

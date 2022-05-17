@@ -48,12 +48,22 @@
                             {
                                 @Html.DropDownListFor(m => m.Company, ViewBag.ComapanyData as SelectList, "--- Select Company ---", htmlAttributes: new { @class = "form-control", @onchange = "BindTicketNo()", id = "Company" })
                             }
+                            @if (@ViewBag.ComapanySelect != null)
+                            {
+
+                                <label>@ViewBag.ComapanySelect</label>
+                            }
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
                             <label>Ticket Number:</label>
                             @Html.DropDownListFor(m => m.Ticket_Num, new SelectList(""), "--- Select Ticket No. ---", htmlAttributes: new { @class = "form-control" })
+                            @if (@ViewBag.TicketNoSelect != null)
+                            {
+
+                                <label>@ViewBag.TicketNoSelect</label>
+                            }
                         </div>
                     </div>
                     <div class="col-lg-3">
