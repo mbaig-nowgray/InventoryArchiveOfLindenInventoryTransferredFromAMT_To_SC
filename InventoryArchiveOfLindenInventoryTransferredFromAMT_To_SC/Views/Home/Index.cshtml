@@ -1,0 +1,169 @@
+﻿@model InventoryArchiveOfLindenInventoryTransferredFromAMT_To_SC.Models.BentexUser
+@{
+    ViewBag.Title = "Calculate Receivables";
+}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .bs-example {
+            height: 50%;
+        }
+
+        .centerlook {
+            padding-left: 400px;
+            font-weight: bold;
+            width: 1000px;
+        }
+
+        .error {
+            padding-left: 400px;
+            font-weight: bold;
+            width: 1000px;
+            color: red;
+        }
+
+        .loginbtn {
+            padding-left: 500px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron">
+
+        @using (Html.BeginForm())
+        {
+            <div class="bs-example" style="border:2px solid gray;">
+                <img src="~/Content/btx-logo.jpg" height="50" alt="BentexGroup" />
+                <div class="form-group centerlook">
+                    <h2 style="padding-left:120px;"> Login </h2>
+                </div>
+                <div class="form-group centerlook">
+                    <label>User Name: </label>
+                    @Html.EditorFor(model => model.UserName) <b style="color:red;">*</b>
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+                <div class="form-group centerlook">
+                    <label>Password:</label>&nbsp;&nbsp;
+                    @Html.EditorFor(model => model.Password) <b style="color:red;">*</b>
+                    @Html.ValidationMessageFor(model => model.Password)
+
+                </div>
+                <div class="form-group error">
+                    @if (@ViewBag.Failedcount != null)
+                    {
+
+                        <label> Failed Attempt count is: @ViewBag.Failedcount</label>
+                    }
+
+                    @if (@ViewBag.NotValidUser != null)
+                    {
+
+                        <label> @ViewBag.NotValidUser</label>
+                    }
+                </div>
+                <div class="loginbtn">
+
+                    <input type="submit" value="Login" class="btn btn-primary" />
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+    @* <p class="lead">Calculate Receivables EzraTawil Quarters</p>
+        @*<p><a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Quarters">Quarters &raquo;</a></p>*@
+
+    @*<h4>Data</h4>
+        <hr />
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th>Quarter</th>
+                <th>Year</th>
+            </tr>
+            @foreach (CalculateReceivables.Models.Eli_CalculateReceivablesEzraTawilQuarters quarters in Model)
+            {
+                <tr>
+                    <td>@quarters.Quarter</td>
+                    <td>@quarters.Year</td>
+                </tr>
+            }
+        </table>*@
+
+
+    <!--Start Enquiry Modal -->
+    <div class="modal fade" id="Quarters" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-dialog-centered modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header tit-up text-center">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <img src="~/Content/images/logo.png" alt="Knowledge Arena" class="aligncenter" />
+                </div>
+                <div class="modal-body customer-box">
+                    <div class="tab-pane" id="Registration">
+                        <h2 class="modal-title" style="text-align:center;">ENQUIRY FORM</h2>
+                        <div role="form" class="form-horizontal">
+                            @using (Html.BeginForm("Index", "Enquiry", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        @*@Html.EditorFor(model => model.Quarter, new { htmlAttributes = new { @class = "form-control", placeholder = "Name", required = "" } })*@
+                                        @*<input class="form-control" id="name" name="txtName" placeholder="Name" type="text">*@
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        @*@Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", placeholder = "Mobile", required = "", pattern = "[0-9]{10,10}" } })*@
+                                        @*<input class="form-control" id="mobile" name="txtMobile" placeholder="Mobile" type="text" pattern="[0-9]{10,10}">*@
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">
+                                    <div class="col-sm-12">-->
+                                @*@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", required = "", @type = "email" } })*@
+                                <!--<input class="form-control" id="email" name="txtEmal" placeholder="Email" type="email" pattern="[A-Za-z0-9._%+-]+[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">-->
+                                @*@Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", @style = "height:100px;", required = "", placeholder = "Enquiry" } })*@
+                                <!--<input class="form-control" id="enquiry"  name="Enquiry" placeholder="Enquiry" type="text" rows = "3">
+                                    </div>
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                        <input type="submit" value="Send &amp; Continue" class="btn btn-light btn-radius btn-brd grd1 aligncenter">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Enquiry Modal -->
+    @*<div class="row">
+            <div class="col-md-4">
+                <h4>Getting Started</h4>
+                <p>
+                    Calculate Receivables EzraTawil Quarters
+                </p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Get more libraries</h2>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>*@
+</body>

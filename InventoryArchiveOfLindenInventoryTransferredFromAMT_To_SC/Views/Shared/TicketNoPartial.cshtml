@@ -1,0 +1,9 @@
+﻿@*<option value="">---Select Ticket No.---</option>*@
+@if (ViewBag.TicketNo != null)
+{
+    foreach (var item in ViewBag.TicketNo)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}
+

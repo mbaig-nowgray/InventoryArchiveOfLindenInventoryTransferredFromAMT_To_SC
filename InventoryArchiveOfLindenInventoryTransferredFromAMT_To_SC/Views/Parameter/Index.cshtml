@@ -1,0 +1,229 @@
+﻿@using InventoryArchiveOfLindenInventoryTransferredFromAMT_To_SC.Models
+@model  InventoryArchiveOfLindenInventoryTransferredFromAMT_To_SC.Models.MultiData
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="font-size:12px;">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="@Url.Action("Index", "Calculate")" class="btn btn-primary btn-md"><< Go Back</a>
+            </div>
+
+            <div class="col-md-12">
+                <div>
+                    <h2>
+                        Inventory Archive Parameters
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="#" class="btn btn-success" style="float:right;" onclick="ConfirmAddParameter()">Add Inventory Archive</a>
+                    </h2>
+                </div>
+
+                <div style="overflow: scroll; height:450px;">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>SNo.</th>
+                            <th>Company</th>
+                            <th>Ticket_Num</th>
+                            <th>Action</th>
+                        </tr>
+                        @{ int sn = 0;}
+                        @for (int i = 0; i < Model.EliInventoryArchiveForLindenWHSE_Data.Count; i++)
+                        {
+                            sn = i + 1;
+                            <tr>
+                                <td>@sn </td>
+                                <td>@Model.EliInventoryArchiveForLindenWHSE_Data[i].Company</td>
+                                <td>@Model.EliInventoryArchiveForLindenWHSE_Data[i].Ticket_Num</td>
+                                <td>
+                                    <a href="#" onclick="ConfirmParameterDelete(@Model.EliInventoryArchiveForLindenWHSE_Data[i].ID)">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                       
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <div style="float:right;">
+        </div>
+        <br />
+        <br />
+        <div class="modal fade" id="ParameterModal">
+            <div class="modal-dialog" style="width:300px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title">Inventory Archive</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>You want to Add Inventory Archive.</h4>
+                        <div class="form-group">
+                            <label>Give Password:</label>
+                            <input type="password" id="txtPassA1" class="form-control" value="" />
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-success" onclick="AddParameter()">Confirm</a>
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="delParameterModal">
+            <div class="modal-dialog" style="width:300px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title">Inventory Archive.</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Want To Delete Inventory Archive? </h4>
+                        <div class="form-group">
+                            <label>Give Password:</label>
+                            <input type="password" id="txtPassD1" class="form-control" value="" />
+                            <input type="hidden" id="hiddenParameterId" name="hiddenParameterId" />
+                            <img src="~/Content/loader.gif" style="text-align:center;display:none" id="loaderDiv" />
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-success" onclick="DeleteParameter()">Confirm</a>
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @using (Html.BeginForm("AddInventoryArchive", "Parameter", FormMethod.Post))
+    {
+        <div id="AddParameterModal" class="modal" tabindex="-1" role="dialog" style="font-size:12px;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Inventory Archive</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="margin-left:50px;">
+
+                        <div class="form-group">
+                            <label>Company:</label>
+                            @Html.TextBoxFor(model => model.EliInventoryArchiveForLindenWHSE_Data[0].Company, htmlAttributes: new { @class = "form-control", Value = "", required = "" })
+                        </div>
+                        <div class="form-group">
+                            <label>Ticket_Num:</label>
+                            @Html.TextBoxFor(model => model.EliInventoryArchiveForLindenWHSE_Data[0].Ticket_Num, htmlAttributes: new { @class = "form-control", Value = "", required = "" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.CustNo != null)
+    {
+        <script type="text/javascript">
+            alert("This Customer Number Already Exists.");
+        </script>
+    }
+    @if (Session["Parameter"] != null)
+    {
+        <script>
+            alert('@Session["Parameter"]')
+        </script>
+        Session["Parameter"] = null;
+    }
+    @if (Session["DelInventoryArchive"] != null)
+    {
+        <script>
+            alert('@Session["DelInventoryArchive"]')
+        </script>
+        Session["DelInventoryArchive"] = null;
+    }
+
+
+
+    <script>
+        var ConfirmAddParameter = function () {
+            $("#txtPassA1").val("");
+            $("#ParameterModal").modal('show');
+        }
+        var AddParameter = function () {
+            var userPass = $("#txtPassA1").val();
+            console.log(userPass);
+            if (userPass == 'nasdaq' || userPass == 'bobby') {
+                $("#ParameterModal").modal('hide');
+                $("#AddParameterModal").modal('show');
+            } else {
+                $("#txtPassA1").val("");
+                alert("Invalid Password.");
+            }
+        }
+
+        var ConfirmParameterDelete = function (ParameterId) {
+            debugger;
+            $("#hiddenParameterId").val(ParameterId);
+            $("#txtPassD1").val("");
+            $("#delParameterModal").modal('show');
+        }
+        var DeleteParameter = function () {
+            var userPass = $("#txtPassD1").val();
+            var ParameterId = $("#hiddenParameterId").val();
+            if (userPass == 'nasdaq' || userPass == 'bobby') {
+                $("#loaderDiv").show();
+                $.ajax({
+                    type: "POST",
+                    url: "/Parameter/DeleteInventoryArchive?id=" + ParameterId,
+                    complete: function (result) {
+                        $("#txtPassD1").val("");
+                        $("#loaderDiv").hide();
+                        $("#delParameterModal").modal("hide");
+                       // $("#row_" + ParameterId).remove();
+                        var url = '@Url.Action("Index", "Parameter")';
+                        window.location.href = url;
+                    },
+                    success: function (result) {
+                        $("#txtPassD1").val("");
+                        $("#loaderDiv").hide();
+                        $("#delParameterModal").modal("hide");
+                       // $("#row_" + ParameterId).remove();
+                        var url = '@Url.Action("Index", "Parameter")';
+                        window.location.href = url;
+                    }
+                });
+            } else {
+                $("#txtPassD1").val("");
+                alert("Invalid Password.");
+            }
+        }
+    </script>
+
+</body>
+
+

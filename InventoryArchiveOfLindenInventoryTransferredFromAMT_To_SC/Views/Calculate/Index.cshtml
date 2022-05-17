@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+}
+<head>
+    <script src="~/Scripts/jquery.fancybox-1.3.4/jquery-1.4.3.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    @*<script type="text/javascript" src="~/Content/jquery.min.js"></script>
+    <script src="~/Content/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+        .buttonload {
+            background-color: #4CAF50; /* Green background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 8px 10px; /* Some padding */
+            font-size: 15px /* Set a font size */;
+        }
+    </style>
+
+</head>
+   
+<body>
+    <div class="jumbotron">
+        <div style="float:right;">
+            <a href="@Url.Action("Index", "Parameter")" class="btn btn-primary btn-md"><i class="fa fa-gear" style="font-size:20px;"></i> Parameter</a>
+        </div>
+        <div>
+            <br /><br /> <br />
+            <h4>
+                Inventory Archive of Linden Inventory Transferred from AMT To SC System for Company PetMedic and Company Maxim.
+            </h4>
+            <br /><br /> <br />
+        </div>
+
+        <div style="float:right;">
+
+            @*@Ajax.ActionLink("Calculate", "Create", new AjaxOptions() { LoadingElementId = "dvProgressBar" })*@
+            <a href="@Url.Action("Index","Execute")" class="btn btn-success btn-mb" id="btnGetData"><i class="fa fa-share" style="font-size:20px;"></i> Calculate</a>
+
+        </div>
+
+    </div>
+
+</body>
